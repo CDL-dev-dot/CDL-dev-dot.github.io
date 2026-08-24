@@ -57,11 +57,12 @@
   }
 
   /* ---------- hero ---------- */
-  .hero { padding: 72px 0 40px; position: relative; overflow: hidden; }
+  .hero { padding: 72px 0 84px; position: relative; }
   .hero::before {
-    content: ""; position: absolute; top: -300px; right: -200px;
+    content: ""; position: absolute; top: -300px; right: -100px;
     width: 700px; height: 700px; border-radius: 50%;
     background: radial-gradient(circle, rgba(110,143,247,.18), transparent 65%);
+    pointer-events: none;
   }
   .hero-grid { display: grid; grid-template-columns: 1.15fr .85fr; gap: 40px; align-items: center; position: relative; }
   .eyebrow {
@@ -100,7 +101,7 @@
   .phone img { width: 100%; display: block; border-radius: 34px; }
 
   /* ---------- stat strip ---------- */
-  .stats { margin: 56px 0 0; }
+  .stats { margin: 0; position: relative; z-index: 2; }
   .stats-inner {
     display: grid; grid-template-columns: repeat(4, 1fr);
     background: var(--card); border-radius: var(--radius);
@@ -236,16 +237,16 @@
       <img src="shots/study.png" alt="Civics Prep study home screen with progress ring and study modes">
     </div>
   </div>
-
-  <div class="wrap stats">
-    <div class="stats-inner">
-      <div class="stat"><div class="num">228</div><div class="lbl">official questions, word for word</div></div>
-      <div class="stat"><div class="num">5</div><div class="lbl">study languages + English</div></div>
-      <div class="stat"><div class="num">100%</div><div class="lbl">works offline, data stays on device</div></div>
-      <div class="stat"><div class="num">$0</div><div class="lbl">every core feature, forever</div></div>
-    </div>
-  </div>
 </header>
+
+<div class="wrap stats">
+  <div class="stats-inner">
+    <div class="stat"><div class="num">228</div><div class="lbl">official questions, word for word</div></div>
+    <div class="stat"><div class="num">5</div><div class="lbl">study languages + English</div></div>
+    <div class="stat"><div class="num">100%</div><div class="lbl">works offline, data stays on device</div></div>
+    <div class="stat"><div class="num">$0</div><div class="lbl">every core feature, forever</div></div>
+  </div>
+</div>
 
 <section id="features">
   <div class="wrap">
