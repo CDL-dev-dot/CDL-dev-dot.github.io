@@ -3,37 +3,382 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Civics Prep — US Citizenship Test App</title>
-<meta name="description" content="Pass the US citizenship civics test. Both 2025 (128 questions) and 2008 (100 questions) versions, realistic mock interviews, Chinese translations, 65/20 senior mode.">
+<title>Civics Prep — Pass the US Citizenship Test | 2025 &amp; 2008 Civics Test Prep</title>
+<meta name="description" content="Walk into your citizenship interview already knowing you'll pass. Both USCIS civics tests (2025 &amp; 2008), realistic mock interviews with real stop rules, 5 study languages, memory tips for every question. No account, no ads, core free forever.">
+<meta property="og:title" content="Civics Prep — Pass the US Citizenship Test">
+<meta property="og:description" content="Realistic USCIS mock interviews, 5 study languages, memory tips for all 228 official questions. Private by design.">
+<meta property="og:image" content="https://cdl-dev-dot.github.io/icon.png">
+<meta property="og:url" content="https://cdl-dev-dot.github.io/">
+<link rel="icon" type="image/png" href="icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Nunito:wght@700;800;900&display=swap" rel="stylesheet">
 <style>
-  body { font-family: -apple-system, "Segoe UI", sans-serif; max-width: 640px; margin: 0 auto;
-         padding: 64px 24px; line-height: 1.7; color: #1c1917; text-align: center; }
-  img.icon { width: 120px; height: 120px; border-radius: 27px; box-shadow: 0 8px 24px rgba(27,42,91,.25); }
-  h1 { font-size: 32px; margin: 20px 0 8px; }
-  .tagline { color: #57534e; font-size: 18px; }
-  .features { text-align: left; display: inline-block; margin: 24px auto; color: #44403c; }
-  .coming { display: inline-block; margin-top: 16px; padding: 10px 22px; background: #1B2A5B;
-            color: #fff; border-radius: 10px; font-weight: 600; }
-  footer { margin-top: 48px; font-size: 13px; color: #a8a29e; }
-  footer a { color: #78716c; }
+  :root {
+    --blue: #3B5BDB;
+    --blue-deep: #2B44B8;
+    --blue-sky: #6E8FF7;
+    --coral: #F0564A;
+    --gold: #F7A325;
+    --mint: #1FB874;
+    --bg: #F2F4F8;
+    --card: #ffffff;
+    --ink: #17203A;
+    --ink-soft: #5B6474;
+    --radius: 22px;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+  h1, h2, h3, .display { font-family: "Nunito", "Inter", sans-serif; }
+  .wrap { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+
+  /* ---------- nav ---------- */
+  nav {
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(242,244,248,.85);
+    backdrop-filter: blur(14px);
+    border-bottom: 1px solid rgba(23,32,58,.06);
+  }
+  .nav-inner { display: flex; align-items: center; justify-content: space-between; padding: 14px 24px; max-width: 1100px; margin: 0 auto; }
+  .brand { display: flex; align-items: center; gap: 10px; font-family: "Nunito"; font-weight: 900; font-size: 19px; color: var(--ink); text-decoration: none; }
+  .brand img { width: 34px; height: 34px; border-radius: 8px; }
+  .nav-cta {
+    font-size: 14px; font-weight: 600; color: #fff; text-decoration: none;
+    background: linear-gradient(135deg, var(--blue), var(--blue-deep));
+    padding: 9px 18px; border-radius: 99px;
+    box-shadow: 0 4px 14px rgba(59,91,219,.35);
+  }
+
+  /* ---------- hero ---------- */
+  .hero { padding: 72px 0 40px; position: relative; overflow: hidden; }
+  .hero::before {
+    content: ""; position: absolute; top: -300px; right: -200px;
+    width: 700px; height: 700px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(110,143,247,.18), transparent 65%);
+  }
+  .hero-grid { display: grid; grid-template-columns: 1.15fr .85fr; gap: 40px; align-items: center; position: relative; }
+  .eyebrow {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-size: 13px; font-weight: 700; letter-spacing: .8px; text-transform: uppercase;
+    color: var(--blue); background: rgba(59,91,219,.10);
+    padding: 7px 14px; border-radius: 99px; margin-bottom: 18px;
+  }
+  .hero h1 {
+    font-size: clamp(34px, 4.6vw, 54px);
+    font-weight: 900; line-height: 1.12; letter-spacing: -0.5px;
+    margin-bottom: 18px;
+  }
+  .hero h1 em { font-style: normal; color: var(--blue); }
+  .hero p.sub { font-size: 18px; color: var(--ink-soft); max-width: 520px; margin-bottom: 28px; }
+  .cta-row { display: flex; gap: 14px; align-items: center; flex-wrap: wrap; }
+  .cta-primary {
+    display: inline-flex; flex-direction: column; text-decoration: none;
+    background: var(--ink); color: #fff; border-radius: 14px; padding: 10px 22px;
+    line-height: 1.25; box-shadow: 0 8px 24px rgba(23,32,58,.25);
+    transition: transform .15s ease;
+  }
+  .cta-primary:hover { transform: translateY(-2px); }
+  .cta-primary .small { font-size: 11px; opacity: .75; }
+  .cta-primary .big { font-size: 17px; font-weight: 700; }
+  .cta-secondary { font-size: 15px; font-weight: 600; color: var(--blue); text-decoration: none; }
+  .hero-note { margin-top: 18px; font-size: 13px; color: var(--ink-soft); }
+
+  /* phone frame */
+  .phone {
+    width: 290px; margin: 0 auto; position: relative;
+    border-radius: 44px; background: #0f1526; padding: 11px;
+    box-shadow: 0 30px 70px rgba(23,32,58,.30), 0 4px 16px rgba(23,32,58,.18);
+    transform: rotate(1.5deg);
+  }
+  .phone img { width: 100%; display: block; border-radius: 34px; }
+
+  /* ---------- stat strip ---------- */
+  .stats { margin: 56px 0 0; }
+  .stats-inner {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    background: var(--card); border-radius: var(--radius);
+    box-shadow: 0 10px 34px rgba(23,32,58,.07);
+    overflow: hidden;
+  }
+  .stat { padding: 26px 12px; text-align: center; border-right: 1px solid rgba(23,32,58,.06); }
+  .stat:last-child { border-right: none; }
+  .stat .num { font-family: "Nunito"; font-size: 30px; font-weight: 900; color: var(--blue); }
+  .stat .lbl { font-size: 13px; color: var(--ink-soft); margin-top: 2px; }
+
+  /* ---------- sections ---------- */
+  section { padding: 76px 0 0; }
+  .sec-head { text-align: center; max-width: 640px; margin: 0 auto 44px; }
+  .sec-head h2 { font-size: clamp(26px, 3.2vw, 38px); font-weight: 900; letter-spacing: -0.4px; margin-bottom: 12px; }
+  .sec-head p { color: var(--ink-soft); font-size: 17px; }
+
+  /* features */
+  .features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+  .feature {
+    background: var(--card); border-radius: var(--radius); padding: 26px 24px;
+    box-shadow: 0 8px 26px rgba(23,32,58,.06);
+    transition: transform .18s ease, box-shadow .18s ease;
+  }
+  .feature:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(23,32,58,.10); }
+  .feature .ico {
+    width: 46px; height: 46px; border-radius: 13px; display: grid; place-items: center;
+    font-size: 21px; margin-bottom: 14px;
+  }
+  .feature h3 { font-size: 17.5px; font-weight: 800; margin-bottom: 6px; }
+  .feature p { font-size: 14.5px; color: var(--ink-soft); }
+  .t-blue { background: rgba(59,91,219,.12); }
+  .t-coral { background: rgba(240,86,74,.12); }
+  .t-gold { background: rgba(247,163,37,.14); }
+  .t-mint { background: rgba(31,184,116,.12); }
+
+  /* gallery */
+  .gallery { display: flex; gap: 34px; justify-content: center; flex-wrap: wrap; align-items: flex-start; }
+  .gallery .phone { transform: none; width: 250px; }
+  .gallery .phone:nth-child(2) { margin-top: 34px; }
+  .gallery .shot-cap { text-align: center; font-size: 14px; font-weight: 600; color: var(--ink-soft); margin-top: 14px; }
+
+  /* steps */
+  .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+  .step { background: var(--card); border-radius: var(--radius); padding: 28px 24px; box-shadow: 0 8px 26px rgba(23,32,58,.06); }
+  .step .n {
+    font-family: "Nunito"; font-weight: 900; font-size: 15px; color: var(--gold);
+    background: rgba(247,163,37,.14); width: 34px; height: 34px; border-radius: 50%;
+    display: grid; place-items: center; margin-bottom: 14px;
+  }
+  .step h3 { font-size: 17px; font-weight: 800; margin-bottom: 6px; }
+  .step p { font-size: 14.5px; color: var(--ink-soft); }
+
+  /* languages */
+  .langs { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+  .lang {
+    background: var(--card); border-radius: 99px; padding: 12px 22px;
+    font-weight: 600; font-size: 15px; box-shadow: 0 6px 18px rgba(23,32,58,.06);
+  }
+  .lang span { color: var(--ink-soft); font-weight: 500; font-size: 13px; }
+
+  /* letter */
+  .letter-band {
+    margin-top: 76px;
+    background: linear-gradient(135deg, var(--blue), var(--blue-deep));
+    padding: 72px 0;
+  }
+  .letter-card { max-width: 720px; margin: 0 auto; text-align: center; color: #fff; padding: 0 24px; }
+  .letter-card .env { font-size: 34px; margin-bottom: 14px; }
+  .letter-card h2 { font-size: clamp(24px, 3vw, 34px); font-weight: 900; margin-bottom: 18px; }
+  .letter-card blockquote { font-size: 18px; line-height: 1.75; opacity: .94; font-style: italic; }
+  .letter-card .promises { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-top: 26px; }
+  .letter-card .pill { background: rgba(255,255,255,.14); border: 1px solid rgba(255,255,255,.22); border-radius: 99px; padding: 8px 16px; font-size: 13.5px; font-weight: 600; }
+  .letter-card .wishes { margin-top: 26px; font-size: 13px; opacity: .75; line-height: 2; }
+
+  /* faq */
+  .faq { max-width: 760px; margin: 0 auto; }
+  details {
+    background: var(--card); border-radius: 16px; padding: 20px 24px; margin-bottom: 12px;
+    box-shadow: 0 6px 18px rgba(23,32,58,.05);
+  }
+  summary { font-weight: 700; font-size: 16px; cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center; }
+  summary::after { content: "+"; font-family: "Nunito"; font-size: 22px; color: var(--blue); font-weight: 800; }
+  details[open] summary::after { content: "–"; }
+  details p { margin-top: 12px; color: var(--ink-soft); font-size: 15px; }
+
+  /* footer */
+  footer { margin-top: 84px; background: #10182e; color: rgba(255,255,255,.75); padding: 44px 0; }
+  .foot-inner { display: flex; justify-content: space-between; align-items: center; gap: 20px; flex-wrap: wrap; max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+  .foot-brand { display: flex; align-items: center; gap: 10px; font-family: "Nunito"; font-weight: 900; color: #fff; }
+  .foot-brand img { width: 30px; height: 30px; border-radius: 7px; }
+  footer a { color: rgba(255,255,255,.85); text-decoration: none; font-size: 14px; margin-left: 18px; }
+  footer a:hover { text-decoration: underline; }
+  .foot-legal { width: 100%; margin-top: 18px; font-size: 12.5px; opacity: .55; }
+
+  @media (max-width: 880px) {
+    .hero-grid { grid-template-columns: 1fr; text-align: center; }
+    .hero p.sub { margin: 0 auto 28px; }
+    .cta-row { justify-content: center; }
+    .phone { margin-top: 36px; }
+    .stats-inner { grid-template-columns: repeat(2, 1fr); }
+    .stat:nth-child(2) { border-right: none; }
+    .stat:nth-child(-n+2) { border-bottom: 1px solid rgba(23,32,58,.06); }
+    .features, .steps { grid-template-columns: 1fr; }
+  }
 </style>
 </head>
 <body>
-  <img class="icon" src="icon.png" alt="Civics Prep app icon">
-  <h1>Civics Prep</h1>
-  <p class="tagline">Pass your U.S. citizenship interview with confidence.</p>
-  <div class="features">
-    ✓ Both tests: 2025 (128 questions) &amp; 2008 (100 questions)<br>
-    ✓ Mock interviews with real USCIS stop rules<br>
-    ✓ Wrong book &amp; progress tracking<br>
-    ✓ 65/20 senior mode<br>
-    ✓ Full Chinese translations · 中文对照
+
+<nav>
+  <div class="nav-inner">
+    <a class="brand" href="#"><img src="icon.png" alt="Civics Prep icon">Civics Prep</a>
+    <a class="nav-cta" href="mailto:civicsprep2026@gmail.com?subject=Notify%20me%20when%20Civics%20Prep%20launches">Get notified</a>
   </div>
-  <br>
-  <span class="coming">Coming soon to the App Store</span>
-  <footer>
-    <a href="privacy.html">Privacy Policy</a> · Support: <a href="mailto:civicsprep2026@gmail.com">civicsprep2026@gmail.com</a><br><br>
-    Independent app, not affiliated with USCIS. All content from official public-domain USCIS materials.
-  </footer>
+</nav>
+
+<header class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="eyebrow">★ Built for the 2025 &amp; 2008 USCIS civics tests</span>
+      <h1>Walk into your citizenship interview <em>already knowing you'll pass.</em></h1>
+      <p class="sub">Realistic mock interviews with the real USCIS rules, an officer voice that reads every question aloud, and memory tips for all 228 official questions — in your language.</p>
+      <div class="cta-row">
+        <a class="cta-primary" href="mailto:civicsprep2026@gmail.com?subject=Notify%20me%20when%20Civics%20Prep%20launches">
+          <span class="small">Coming soon to the</span>
+          <span class="big"> App Store</span>
+        </a>
+        <a class="cta-secondary" href="#letter">Read our letter to you ↓</a>
+      </div>
+      <p class="hero-note">No account · No ads · No tracking · Core free forever</p>
+    </div>
+    <div class="phone">
+      <img src="shots/study.png" alt="Civics Prep study home screen with progress ring and study modes">
+    </div>
+  </div>
+
+  <div class="wrap stats">
+    <div class="stats-inner">
+      <div class="stat"><div class="num">228</div><div class="lbl">official questions, word for word</div></div>
+      <div class="stat"><div class="num">5</div><div class="lbl">study languages + English</div></div>
+      <div class="stat"><div class="num">100%</div><div class="lbl">works offline, data stays on device</div></div>
+      <div class="stat"><div class="num">$0</div><div class="lbl">every core feature, forever</div></div>
+    </div>
+  </div>
+</header>
+
+<section id="features">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Not another flashcard app.<br>A rehearsal for the real thing.</h2>
+      <p>Every detail mirrors the actual naturalization interview — so test day feels like just another practice run.</p>
+    </div>
+    <div class="features">
+      <div class="feature"><div class="ico t-blue">🎯</div><h3>Real interview rules</h3><p>The officer stops at 12 correct or 9 wrong — so does our mock exam. You'll know exactly when you're ready, not just how many cards you've flipped.</p></div>
+      <div class="feature"><div class="ico t-gold">🗣️</div><h3>An officer reads aloud</h3><p>Every question is spoken in a natural US English voice, just like the oral exam. Train your ears, not just your eyes.</p></div>
+      <div class="feature"><div class="ico t-coral">📚</div><h3>Both tests, auto-matched</h3><p>Filed N-400 before or after Oct 20, 2025? We cover both the 128-question 2025 test and the 100-question 2008 test.</p></div>
+      <div class="feature"><div class="ico t-mint">💡</div><h3>Memory tips for every question</h3><p>All 228 questions come with a mnemonic — number anchors, word tricks, vivid images — so answers stick the first time.</p></div>
+      <div class="feature"><div class="ico t-blue">📖</div><h3>A Wrong Book that fights back</h3><p>Every miss is captured, analyzed by topic, and drilled until you win it back. Weakness has nowhere to hide.</p></div>
+      <div class="feature"><div class="ico t-gold">🌍</div><h3>Study in your language</h3><p>Español, 中文, Tiếng Việt, Tagalog, and हिन्दी — full translations of every question and answer. Study in yours, answer in English.</p></div>
+      <div class="feature"><div class="ico t-coral">🧓</div><h3>65/20 senior mode</h3><p>Age 65+ with 20 years as a permanent resident? Study only the 20 starred questions — and take the interview in your own language.</p></div>
+      <div class="feature"><div class="ico t-mint">🔄</div><h3>Never outdated</h3><p>Answers that change with elections — President, Speaker, your Governor — are never hardcoded. We point you to the official USCIS update page.</p></div>
+      <div class="feature"><div class="ico t-blue">🔒</div><h3>Private by design</h3><p>No login screen. No analytics. No ads. Your study data never leaves your phone — we couldn't see it if we wanted to.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="screens">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Serious preparation, friendly experience.</h2>
+      <p>Confidence grows one screen at a time.</p>
+    </div>
+    <div class="gallery">
+      <div>
+        <div class="phone"><img src="shots/exam.png" alt="Mock interview briefing screen"></div>
+        <div class="shot-cap">Mock interviews with real rules</div>
+      </div>
+      <div>
+        <div class="phone"><img src="shots/wrongbook.png" alt="Wrong Book dashboard with weak-area analysis"></div>
+        <div class="shot-cap">Weak-area analysis that guides you</div>
+      </div>
+      <div>
+        <div class="phone"><img src="shots/letter.png" alt="A personal letter to every user"></div>
+        <div class="shot-cap">And a promise we intend to keep</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="how">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Three steps to a confident yes.</h2>
+      <p>A few minutes a day is all it takes.</p>
+    </div>
+    <div class="steps">
+      <div class="step"><div class="n">1</div><h3>Study smart</h3><p>Flip flashcards with translations and memory tips. A daily reminder keeps the streak alive.</p></div>
+      <div class="step"><div class="n">2</div><h3>Rehearse the interview</h3><p>Take mock exams under real USCIS rules, with the officer's voice asking every question out loud.</p></div>
+      <div class="step"><div class="n">3</div><h3>Clear your Wrong Book</h3><p>Win back every missed question until nothing is left — then walk in and pass for real.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="languages">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Made for the many, in many tongues.</h2>
+      <p>Full translations of every official question and answer.</p>
+    </div>
+    <div class="langs">
+      <div class="lang">Español <span>· Spanish</span></div>
+      <div class="lang">中文 <span>· Chinese</span></div>
+      <div class="lang">Tiếng Việt <span>· Vietnamese</span></div>
+      <div class="lang">Tagalog <span>· Filipino</span></div>
+      <div class="lang">हिन्दी <span>· Hindi</span></div>
+    </div>
+  </div>
+</section>
+
+<div class="letter-band" id="letter">
+  <div class="letter-card">
+    <div class="env">✉️</div>
+    <h2>A letter to you, inside the app.</h2>
+    <blockquote>"There is no company behind this app. No investors, no growth targets, no dashboard watching what you do. It was made the way you'd make something for a friend — with care, and with the hope that it genuinely helps. On the day you raise your right hand and take the Oath, this little app will have been a tiny part of your story. That's all the reward it needs."</blockquote>
+    <div class="promises">
+      <span class="pill">No account</span>
+      <span class="pill">No tracking</span>
+      <span class="pill">No ads</span>
+      <span class="pill">Core free forever</span>
+    </div>
+    <div class="wishes">
+      Que apruebes tu examen. · 祝你顺利通过考试，成功入籍。 · Chúc bạn thi đậu. · Nawa'y maipasa mo ang pagsusulit. · शुभकामनाएँ।
+    </div>
+  </div>
+</div>
+
+<section id="faq">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Questions, answered.</h2>
+    </div>
+    <div class="faq">
+      <details>
+        <summary>Which test will I take — 2025 or 2008?</summary>
+        <p>If you filed Form N-400 on or after October 20, 2025, you take the 2025 test (128 questions; up to 20 asked, 12 to pass). If you filed before that date, you take the 2008 test (100 questions; up to 10 asked, 6 to pass). Civics Prep covers both — pick your version once and everything adapts.</p>
+      </details>
+      <details>
+        <summary>Is the content really accurate?</summary>
+        <p>Every question and answer is taken word-for-word from official USCIS study materials, which are U.S. government works in the public domain. Answers that change with elections are never hardcoded — the app points you to the official USCIS update page so you never study an outdated name.</p>
+      </details>
+      <details>
+        <summary>Is it really free?</summary>
+        <p>Every official question and every study tool you see today is free, and will stay free. If optional extras ever appear, nothing you already have will be taken away.</p>
+      </details>
+      <details>
+        <summary>Does it work offline?</summary>
+        <p>Yes. All questions, translations, and memory tips are on your device. Study on the subway, on a plane, anywhere.</p>
+      </details>
+      <details>
+        <summary>Is this an official USCIS app?</summary>
+        <p>No. Civics Prep is an independent study aid and is not affiliated with, endorsed by, or connected to USCIS or any government agency.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="foot-inner">
+    <div class="foot-brand"><img src="icon.png" alt="">Civics Prep</div>
+    <div>
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="mailto:civicsprep2026@gmail.com">Support</a>
+    </div>
+    <div class="foot-legal">
+      Independent app, not affiliated with USCIS or any government agency. All test content is sourced from official public-domain USCIS materials (M-1778 09/25; 100q rev. 01/19). © 2026 Civics Prep.
+    </div>
+  </div>
+</footer>
+
 </body>
 </html>
