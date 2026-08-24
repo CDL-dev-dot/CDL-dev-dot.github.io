@@ -128,15 +128,17 @@
   }
   .feature:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(23,32,58,.10); }
   .feature .ico {
-    width: 46px; height: 46px; border-radius: 13px; display: grid; place-items: center;
-    font-size: 21px; margin-bottom: 14px;
+    width: 48px; height: 48px; border-radius: 14px; display: grid; place-items: center;
+    margin-bottom: 14px; transition: transform .25s ease;
   }
+  .feature .ico svg { width: 23px; height: 23px; }
+  .feature:hover .ico { transform: scale(1.12) rotate(-4deg); }
   .feature h3 { font-size: 17.5px; font-weight: 800; margin-bottom: 6px; }
   .feature p { font-size: 14.5px; color: var(--ink-soft); }
-  .t-blue { background: rgba(59,91,219,.12); }
-  .t-coral { background: rgba(240,86,74,.12); }
-  .t-gold { background: rgba(247,163,37,.14); }
-  .t-mint { background: rgba(31,184,116,.12); }
+  .t-blue { background: rgba(59,91,219,.12); color: var(--blue); }
+  .t-coral { background: rgba(240,86,74,.12); color: var(--coral); }
+  .t-gold { background: rgba(247,163,37,.14); color: #D98A0F; }
+  .t-mint { background: rgba(31,184,116,.12); color: var(--mint); }
 
   /* gallery */
   .gallery { display: flex; gap: 34px; justify-content: center; flex-wrap: wrap; align-items: flex-start; }
@@ -197,6 +199,34 @@
   footer a:hover { text-decoration: underline; }
   .foot-legal { width: 100%; margin-top: 18px; font-size: 12.5px; opacity: .55; }
 
+  /* ---------- motion ---------- */
+  .reveal { opacity: 0; transform: translateY(26px); transition: opacity .7s ease, transform .7s cubic-bezier(.2,.7,.3,1); }
+  .reveal.in { opacity: 1; transform: none; }
+
+  .hero-grid > div:first-child { animation: rise .8s cubic-bezier(.2,.7,.3,1) both; }
+  .hero .phone { animation: rise .9s .15s cubic-bezier(.2,.7,.3,1) both, floaty 6s 1.2s ease-in-out infinite alternate; }
+  @keyframes rise { from { opacity: 0; transform: translateY(30px) rotate(1.5deg); } to { opacity: 1; } }
+  @keyframes floaty { from { translate: 0 0; } to { translate: 0 -10px; } }
+
+  .hero::before { animation: drift 14s ease-in-out infinite alternate; }
+  @keyframes drift { from { transform: translate(0,0) scale(1); } to { transform: translate(-60px, 40px) scale(1.08); } }
+
+  nav { transition: box-shadow .25s ease; }
+  nav.scrolled { box-shadow: 0 6px 24px rgba(23,32,58,.08); }
+
+  details p { animation: faqIn .35s ease both; }
+  @keyframes faqIn { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; } }
+
+  .lang { transition: transform .2s ease, box-shadow .2s ease; }
+  .lang:hover { transform: translateY(-3px); box-shadow: 0 12px 26px rgba(23,32,58,.10); }
+  .step { transition: transform .2s ease; }
+  .step:hover { transform: translateY(-4px); }
+
+  @media (prefers-reduced-motion: reduce) {
+    .reveal { opacity: 1; transform: none; transition: none; }
+    .hero-grid > div:first-child, .hero .phone, .hero::before, details p { animation: none; }
+  }
+
   @media (max-width: 880px) {
     .hero-grid { grid-template-columns: 1fr; text-align: center; }
     .hero p.sub { margin: 0 auto 28px; }
@@ -241,10 +271,10 @@
 
 <div class="wrap stats">
   <div class="stats-inner">
-    <div class="stat"><div class="num">228</div><div class="lbl">official questions, word for word</div></div>
-    <div class="stat"><div class="num">5</div><div class="lbl">study languages + English</div></div>
-    <div class="stat"><div class="num">100%</div><div class="lbl">works offline, data stays on device</div></div>
-    <div class="stat"><div class="num">$0</div><div class="lbl">every core feature, forever</div></div>
+    <div class="stat"><div class="num" data-count="228">0</div><div class="lbl">official questions, word for word</div></div>
+    <div class="stat"><div class="num" data-count="5">0</div><div class="lbl">study languages + English</div></div>
+    <div class="stat"><div class="num" data-count="100" data-suffix="%">0%</div><div class="lbl">works offline, data stays on device</div></div>
+    <div class="stat"><div class="num" data-prefix="$" data-count="0">$0</div><div class="lbl">every core feature, forever</div></div>
   </div>
 </div>
 
@@ -255,15 +285,15 @@
       <p>Every detail mirrors the actual naturalization interview — so test day feels like just another practice run.</p>
     </div>
     <div class="features">
-      <div class="feature"><div class="ico t-blue">🎯</div><h3>Real interview rules</h3><p>The officer stops at 12 correct or 9 wrong — so does our mock exam. You'll know exactly when you're ready, not just how many cards you've flipped.</p></div>
-      <div class="feature"><div class="ico t-gold">🗣️</div><h3>An officer reads aloud</h3><p>Every question is spoken in a natural US English voice, just like the oral exam. Train your ears, not just your eyes.</p></div>
-      <div class="feature"><div class="ico t-coral">📚</div><h3>Both tests, auto-matched</h3><p>Filed N-400 before or after Oct 20, 2025? We cover both the 128-question 2025 test and the 100-question 2008 test.</p></div>
-      <div class="feature"><div class="ico t-mint">💡</div><h3>Memory tips for every question</h3><p>All 228 questions come with a mnemonic — number anchors, word tricks, vivid images — so answers stick the first time.</p></div>
-      <div class="feature"><div class="ico t-blue">📖</div><h3>A Wrong Book that fights back</h3><p>Every miss is captured, analyzed by topic, and drilled until you win it back. Weakness has nowhere to hide.</p></div>
-      <div class="feature"><div class="ico t-gold">🌍</div><h3>Study in your language</h3><p>Español, 中文, Tiếng Việt, Tagalog, and हिन्दी — full translations of every question and answer. Study in yours, answer in English.</p></div>
-      <div class="feature"><div class="ico t-coral">🧓</div><h3>65/20 senior mode</h3><p>Age 65+ with 20 years as a permanent resident? Study only the 20 starred questions — and take the interview in your own language.</p></div>
-      <div class="feature"><div class="ico t-mint">🔄</div><h3>Never outdated</h3><p>Answers that change with elections — President, Speaker, your Governor — are never hardcoded. We point you to the official USCIS update page.</p></div>
-      <div class="feature"><div class="ico t-blue">🔒</div><h3>Private by design</h3><p>No login screen. No analytics. No ads. Your study data never leaves your phone — we couldn't see it if we wanted to.</p></div>
+      <div class="feature"><div class="ico t-blue"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4.5"/><circle cx="12" cy="12" r="0.5" fill="currentColor"/></svg></div><h3>Real interview rules</h3><p>The officer stops at 12 correct or 9 wrong — so does our mock exam. You'll know exactly when you're ready, not just how many cards you've flipped.</p></div>
+      <div class="feature"><div class="ico t-gold"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6.5 8.5H3v7h3.5L11 19V5z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M18.5 6a9 9 0 0 1 0 12"/></svg></div><h3>An officer reads aloud</h3><p>Every question is spoken in a natural US English voice, just like the oral exam. Train your ears, not just your eyes.</p></div>
+      <div class="feature"><div class="ico t-coral"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="13" height="14" rx="2"/><path d="M8 3h11a2 2 0 0 1 2 2v12"/></svg></div><h3>Both tests, auto-matched</h3><p>Filed N-400 before or after Oct 20, 2025? We cover both the 128-question 2025 test and the 100-question 2008 test.</p></div>
+      <div class="feature"><div class="ico t-mint"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6"/><path d="M10 22h4"/><path d="M12 2a7 7 0 0 0-4 12.7c.6.5 1 1.4 1 2.3h6c0-.9.4-1.8 1-2.3A7 7 0 0 0 12 2z"/></svg></div><h3>Memory tips for every question</h3><p>All 228 questions come with a mnemonic — number anchors, word tricks, vivid images — so answers stick the first time.</p></div>
+      <div class="feature"><div class="ico t-blue"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h12a1 1 0 0 1 1 1v17l-7-4-7 4V4a1 1 0 0 1 1-1z"/></svg></div><h3>A Wrong Book that fights back</h3><p>Every miss is captured, analyzed by topic, and drilled until you win it back. Weakness has nowhere to hide.</p></div>
+      <div class="feature"><div class="ico t-gold"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3a14.5 14.5 0 0 1 0 18 14.5 14.5 0 0 1 0-18z"/></svg></div><h3>Study in your language</h3><p>Español, 中文, Tiếng Việt, Tagalog, and हिन्दी — full translations of every question and answer. Study in yours, answer in English.</p></div>
+      <div class="feature"><div class="ico t-coral"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="8" r="4"/><path d="M3 21c0-3.5 3-6 7-6 1.1 0 2.2.2 3.1.6"/><path d="M17.5 13.5l1.1 2.2 2.4.4-1.7 1.7.4 2.4-2.2-1.1-2.2 1.1.4-2.4-1.7-1.7 2.4-.4z"/></svg></div><h3>65/20 senior mode</h3><p>Age 65+ with 20 years as a permanent resident? Study only the 20 starred questions — and take the interview in your own language.</p></div>
+      <div class="feature"><div class="ico t-mint"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-2.6-6.4"/><path d="M21 4v5h-5"/></svg></div><h3>Never outdated</h3><p>Answers that change with elections — President, Speaker, your Governor — are never hardcoded. We point you to the official USCIS update page.</p></div>
+      <div class="feature"><div class="ico t-blue"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5c0 4.5-3 8.6-7 10-4-1.4-7-5.5-7-10V6l7-3z"/><circle cx="12" cy="11" r="1.6"/><path d="M12 12.6V15.5"/></svg></div><h3>Private by design</h3><p>No login screen. No analytics. No ads. Your study data never leaves your phone — we couldn't see it if we wanted to.</p></div>
     </div>
   </div>
 </section>
@@ -323,7 +353,7 @@
 
 <div class="letter-band" id="letter">
   <div class="letter-card">
-    <div class="env">✉️</div>
+    <div class="env"><svg viewBox="0 0 24 24" width="42" height="42" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="M3 7.5l9 6 9-6"/></svg></div>
     <h2>A letter to you, inside the app.</h2>
     <blockquote>"There is no company behind this app. No investors, no growth targets, no dashboard watching what you do. It was made the way you'd make something for a friend — with care, and with the hope that it genuinely helps. On the day you raise your right hand and take the Oath, this little app will have been a tiny part of your story. That's all the reward it needs."</blockquote>
     <div class="promises">
@@ -380,6 +410,66 @@
     </div>
   </div>
 </footer>
+
+<script>
+(function () {
+  var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  // Nav shadow on scroll
+  var nav = document.querySelector("nav");
+  addEventListener("scroll", function () {
+    nav.classList.toggle("scrolled", scrollY > 8);
+  }, { passive: true });
+
+  // Tag reveal targets with staggered delays
+  var groups = [
+    ".sec-head", ".feature", ".step", ".lang",
+    ".gallery > div", ".stats-inner", ".letter-card", ".faq details"
+  ];
+  groups.forEach(function (sel) {
+    document.querySelectorAll(sel).forEach(function (el, i) {
+      el.classList.add("reveal");
+      el.style.transitionDelay = Math.min(i * 70, 420) + "ms";
+    });
+  });
+
+  if (reduced) {
+    document.querySelectorAll(".reveal").forEach(function (el) { el.classList.add("in"); });
+    return;
+  }
+
+  // Count-up for the stat numbers
+  function countUp(el) {
+    var target = parseInt(el.dataset.count, 10);
+    var prefix = el.dataset.prefix || "";
+    var suffix = el.dataset.suffix || "";
+    var t0 = null, dur = 1100;
+    function frame(t) {
+      if (!t0) t0 = t;
+      var p = Math.min((t - t0) / dur, 1);
+      var eased = 1 - Math.pow(1 - p, 3);
+      el.textContent = prefix + Math.round(target * eased) + suffix;
+      if (p < 1) requestAnimationFrame(frame);
+    }
+    requestAnimationFrame(frame);
+  }
+
+  var counted = false;
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (!entry.isIntersecting) return;
+      entry.target.classList.add("in");
+      if (!counted && entry.target.classList.contains("stats-inner")) {
+        counted = true;
+        entry.target.querySelectorAll(".num[data-count]").forEach(countUp);
+      }
+      io.unobserve(entry.target);
+    });
+  }, { threshold: 0.15, rootMargin: "0px 0px -40px 0px" });
+
+  document.querySelectorAll(".reveal").forEach(function (el) { io.observe(el); });
+})();
+</script>
 
 </body>
 </html>
