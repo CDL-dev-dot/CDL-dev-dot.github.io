@@ -29,12 +29,18 @@
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
   html { scroll-behavior: smooth; }
+  html, body { overflow-x: clip; }
   body {
     font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
     background: var(--bg);
     color: var(--ink);
     line-height: 1.65;
     -webkit-font-smoothing: antialiased;
+  }
+  #progressbar {
+    position: fixed; top: 0; left: 0; height: 3px; width: 0;
+    background: linear-gradient(90deg, var(--blue), var(--blue-sky), var(--gold));
+    z-index: 200; border-radius: 0 3px 3px 0;
   }
   h1, h2, h3, .display { font-family: "Nunito", "Inter", sans-serif; }
   .wrap { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
@@ -76,7 +82,21 @@
     font-weight: 900; line-height: 1.12; letter-spacing: -0.5px;
     margin-bottom: 18px;
   }
-  .hero h1 em { font-style: normal; color: var(--blue); }
+  .hero h1 em {
+    font-style: normal;
+    background: linear-gradient(90deg, var(--blue), var(--blue-sky), var(--gold), var(--blue));
+    background-size: 300% 100%;
+    -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent; color: transparent;
+    animation: shimmer 6s linear infinite;
+  }
+  @keyframes shimmer { to { background-position: -300% 0; } }
+  .hero h1 .w {
+    display: inline-block; opacity: 0;
+    transform: translateY(30px) rotate(3deg);
+    animation: wordUp .65s cubic-bezier(.2,.7,.3,1) forwards;
+  }
+  @keyframes wordUp { to { opacity: 1; transform: none; } }
   .hero p.sub { font-size: 18px; color: var(--ink-soft); max-width: 520px; margin-bottom: 28px; }
   .cta-row { display: flex; gap: 14px; align-items: center; flex-wrap: wrap; }
   .cta-primary {
@@ -84,7 +104,16 @@
     background: var(--ink); color: #fff; border-radius: 14px; padding: 10px 22px;
     line-height: 1.25; box-shadow: 0 8px 24px rgba(23,32,58,.25);
     transition: transform .15s ease;
+    position: relative; overflow: hidden;
   }
+  .cta-primary::after {
+    content: ""; position: absolute; top: 0; left: -80%;
+    width: 50%; height: 100%;
+    background: linear-gradient(105deg, transparent, rgba(255,255,255,.35), transparent);
+    transform: skewX(-20deg);
+    transition: left .6s ease;
+  }
+  .cta-primary:hover::after { left: 130%; }
   .cta-primary:hover { transform: translateY(-2px); }
   .cta-primary .small { font-size: 11px; opacity: .75; }
   .cta-primary .big { font-size: 17px; font-weight: 700; }
@@ -112,6 +141,31 @@
   .stat:last-child { border-right: none; }
   .stat .num { font-family: "Nunito"; font-size: 30px; font-weight: 900; color: var(--blue); }
   .stat .lbl { font-size: 13px; color: var(--ink-soft); margin-top: 2px; }
+
+  /* ---------- question ticker ---------- */
+  .ticker {
+    margin-top: 40px; padding: 16px 0;
+    border-top: 1px solid rgba(23,32,58,.06);
+    border-bottom: 1px solid rgba(23,32,58,.06);
+    background: #fff; overflow: hidden; position: relative;
+  }
+  .ticker::before, .ticker::after {
+    content: ""; position: absolute; top: 0; bottom: 0; width: 90px; z-index: 2; pointer-events: none;
+  }
+  .ticker::before { left: 0; background: linear-gradient(90deg, #fff, transparent); }
+  .ticker::after { right: 0; background: linear-gradient(-90deg, #fff, transparent); }
+  .ticker-track {
+    display: flex; gap: 44px; width: max-content;
+    animation: tick 48s linear infinite;
+  }
+  .ticker:hover .ticker-track { animation-play-state: paused; }
+  .tick-item {
+    display: flex; align-items: center; gap: 9px; white-space: nowrap;
+    font-size: 14px; color: var(--ink-soft); font-weight: 500;
+  }
+  .tick-item b { color: var(--ink); font-weight: 700; }
+  .tick-item .star { color: var(--gold); font-size: 12px; }
+  @keyframes tick { to { transform: translateX(-50%); } }
 
   /* ---------- sections ---------- */
   section { padding: 76px 0 0; }
@@ -200,7 +254,7 @@
   .foot-legal { width: 100%; margin-top: 18px; font-size: 12.5px; opacity: .55; }
 
   /* ---------- motion ---------- */
-  .reveal { opacity: 0; transform: translateY(26px); transition: opacity .7s ease, transform .7s cubic-bezier(.2,.7,.3,1); }
+  .reveal { opacity: 0; transform: translateY(36px) scale(.97); transition: opacity .8s ease, transform .8s cubic-bezier(.2,.7,.3,1); }
   .reveal.in { opacity: 1; transform: none; }
 
   .hero-grid > div:first-child { animation: rise .8s cubic-bezier(.2,.7,.3,1) both; }
@@ -240,6 +294,7 @@
 </style>
 </head>
 <body>
+<div id="progressbar"></div>
 
 <nav>
   <div class="nav-inner">
@@ -275,6 +330,31 @@
     <div class="stat"><div class="num" data-count="5">0</div><div class="lbl">study languages + English</div></div>
     <div class="stat"><div class="num" data-count="100" data-suffix="%">0%</div><div class="lbl">works offline, data stays on device</div></div>
     <div class="stat"><div class="num" data-prefix="$" data-count="0">$0</div><div class="lbl">every core feature, forever</div></div>
+  </div>
+</div>
+
+<div class="ticker" aria-hidden="true">
+  <div class="ticker-track">
+    <span class="tick-item"><span class="star">★</span> How many amendments does the Constitution have? <b>27</b></span>
+    <span class="tick-item"><span class="star">★</span> What is the supreme law of the land? <b>The Constitution</b></span>
+    <span class="tick-item"><span class="star">★</span> Who vetoes bills? <b>The President</b></span>
+    <span class="tick-item"><span class="star">★</span> What is the capital of the United States? <b>Washington, D.C.</b></span>
+    <span class="tick-item"><span class="star">★</span> Why does the flag have 13 stripes? <b>The 13 original colonies</b></span>
+    <span class="tick-item"><span class="star">★</span> What is the name of the national anthem? <b>The Star-Spangled Banner</b></span>
+    <span class="tick-item"><span class="star">★</span> Who was the first President? <b>George Washington</b></span>
+    <span class="tick-item"><span class="star">★</span> What is the economic system of the U.S.? <b>Capitalism</b></span>
+    <span class="tick-item"><span class="star">★</span> When was the Declaration of Independence adopted? <b>July 4, 1776</b></span>
+    <span class="tick-item"><span class="star">★</span> How many U.S. senators are there? <b>100</b></span>
+    <span class="tick-item"><span class="star">★</span> How many amendments does the Constitution have? <b>27</b></span>
+    <span class="tick-item"><span class="star">★</span> What is the supreme law of the land? <b>The Constitution</b></span>
+    <span class="tick-item"><span class="star">★</span> Who vetoes bills? <b>The President</b></span>
+    <span class="tick-item"><span class="star">★</span> What is the capital of the United States? <b>Washington, D.C.</b></span>
+    <span class="tick-item"><span class="star">★</span> Why does the flag have 13 stripes? <b>The 13 original colonies</b></span>
+    <span class="tick-item"><span class="star">★</span> What is the name of the national anthem? <b>The Star-Spangled Banner</b></span>
+    <span class="tick-item"><span class="star">★</span> Who was the first President? <b>George Washington</b></span>
+    <span class="tick-item"><span class="star">★</span> What is the economic system of the U.S.? <b>Capitalism</b></span>
+    <span class="tick-item"><span class="star">★</span> When was the Declaration of Independence adopted? <b>July 4, 1776</b></span>
+    <span class="tick-item"><span class="star">★</span> How many U.S. senators are there? <b>100</b></span>
   </div>
 </div>
 
@@ -415,11 +495,61 @@
 (function () {
   var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  // Nav shadow on scroll
+  // Nav shadow + reading progress bar
   var nav = document.querySelector("nav");
+  var bar = document.getElementById("progressbar");
   addEventListener("scroll", function () {
     nav.classList.toggle("scrolled", scrollY > 8);
+    var max = document.documentElement.scrollHeight - innerHeight;
+    bar.style.width = (max > 0 ? (scrollY / max) * 100 : 0) + "%";
   }, { passive: true });
+
+  // Hero headline: word-by-word entrance
+  if (!reduced) {
+    var h1 = document.querySelector(".hero h1");
+    var delay = 0;
+    function wrapWords(node) {
+      Array.from(node.childNodes).forEach(function (child) {
+        if (child.nodeType === 3) {
+          var frag = document.createDocumentFragment();
+          child.textContent.split(/(\s+)/).forEach(function (part) {
+            if (/^\s+$/.test(part) || part === "") {
+              frag.appendChild(document.createTextNode(part));
+            } else {
+              var s = document.createElement("span");
+              s.className = "w";
+              s.style.animationDelay = delay + "ms";
+              s.textContent = part;
+              delay += 60;
+              frag.appendChild(s);
+            }
+          });
+          node.replaceChild(frag, child);
+        } else if (child.nodeType === 1) {
+          wrapWords(child);
+        }
+      });
+    }
+    wrapWords(h1);
+  }
+
+  // Hero phone: mouse parallax tilt (desktop only)
+  var heroPhone = document.querySelector(".hero .phone");
+  var hero = document.querySelector(".hero");
+  if (!reduced && heroPhone && matchMedia("(pointer: fine)").matches) {
+    setTimeout(function () {
+      hero.addEventListener("mousemove", function (e) {
+        var r = hero.getBoundingClientRect();
+        var x = (e.clientX - r.left) / r.width - 0.5;
+        var y = (e.clientY - r.top) / r.height - 0.5;
+        heroPhone.style.transform =
+          "perspective(900px) rotateY(" + (x * 9) + "deg) rotateX(" + (-y * 7) + "deg) rotate(1.5deg)";
+      });
+      hero.addEventListener("mouseleave", function () {
+        heroPhone.style.transform = "";
+      });
+    }, 1300);
+  }
 
   // Tag reveal targets with staggered delays
   var groups = [
