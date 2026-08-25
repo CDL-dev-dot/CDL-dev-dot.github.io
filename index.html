@@ -120,6 +120,17 @@
   .cta-secondary { font-size: 15px; font-weight: 600; color: var(--blue); text-decoration: none; }
   .hero-note { margin-top: 18px; font-size: 13px; color: var(--ink-soft); }
 
+  /* hero faces strip */
+  .hero-faces { display: flex; align-items: center; gap: 12px; margin-top: 22px; }
+  .hero-faces .avatars { display: flex; }
+  .hero-faces .avatars img {
+    width: 34px; height: 34px; border-radius: 50%; object-fit: cover;
+    border: 2.5px solid var(--bg); margin-left: -9px;
+    box-shadow: 0 2px 8px rgba(23,32,58,.15);
+  }
+  .hero-faces .avatars img:first-child { margin-left: 0; }
+  .hero-faces span { font-size: 13.5px; font-weight: 600; color: var(--ink-soft); }
+
   /* phone frame */
   .phone {
     width: 290px; margin: 0 auto; position: relative;
@@ -211,21 +222,41 @@
   .step h3 { font-size: 17px; font-weight: 800; margin-bottom: 6px; }
   .step p { font-size: 14.5px; color: var(--ink-soft); }
 
-  /* languages */
-  .langs { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
-  .lang {
-    background: var(--card); border-radius: 99px; padding: 12px 22px;
-    font-weight: 600; font-size: 15px; box-shadow: 0 6px 18px rgba(23,32,58,.06);
+  /* languages — real faces */
+  .faces { display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; }
+  .face {
+    position: relative; border-radius: 18px; overflow: hidden; margin: 0;
+    box-shadow: 0 10px 30px rgba(23,32,58,.10);
+    transition: transform .22s ease, box-shadow .22s ease;
   }
-  .lang span { color: var(--ink-soft); font-weight: 500; font-size: 13px; }
+  .face:hover { transform: translateY(-6px); box-shadow: 0 20px 44px rgba(23,32,58,.16); }
+  .face img { width: 100%; aspect-ratio: 3 / 4; object-fit: cover; display: block; }
+  .face figcaption {
+    position: absolute; left: 0; right: 0; bottom: 0;
+    padding: 44px 14px 13px;
+    background: linear-gradient(180deg, transparent, rgba(12,16,32,.82));
+    color: #fff;
+  }
+  .face figcaption b { display: block; font-family: "Nunito"; font-size: 16px; font-weight: 800; }
+  .face figcaption b em { font-style: normal; font-weight: 600; font-size: 12px; opacity: .75; margin-left: 5px; }
+  .face figcaption span { display: block; font-size: 12px; opacity: .85; line-height: 1.45; margin-top: 2px; }
+  @media (max-width: 880px) {
+    .faces { grid-template-columns: repeat(2, 1fr); }
+    .faces .face:last-child { grid-column: 1 / -1; max-width: 55%; margin: 0 auto; }
+  }
 
-  /* letter */
+  /* letter — oath ceremony photo under a violet veil */
   .letter-band {
     margin-top: 76px;
-    background: linear-gradient(135deg, var(--blue), var(--blue-deep));
+    position: relative;
+    background: url("people/oath.jpg") center 30% / cover no-repeat, var(--blue-deep);
     padding: 72px 0;
   }
-  .letter-card { max-width: 720px; margin: 0 auto; text-align: center; color: #fff; padding: 0 24px; }
+  .letter-band::before {
+    content: ""; position: absolute; inset: 0;
+    background: linear-gradient(135deg, rgba(83,56,255,.90), rgba(59,39,204,.93));
+  }
+  .letter-card { position: relative; z-index: 1; max-width: 720px; margin: 0 auto; text-align: center; color: #fff; padding: 0 24px; }
   .letter-card .env { font-size: 34px; margin-bottom: 14px; }
   .letter-card h2 { font-size: clamp(24px, 3vw, 34px); font-weight: 900; margin-bottom: 18px; }
   .letter-card blockquote { font-size: 18px; line-height: 1.75; opacity: .94; font-style: italic; }
@@ -317,6 +348,16 @@
         <a class="cta-secondary" href="#letter">Read our letter to you ↓</a>
       </div>
       <p class="hero-note">No account · No ads · No tracking · Core free forever</p>
+      <div class="hero-faces">
+        <div class="avatars">
+          <img src="people/mx.jpg" alt="">
+          <img src="people/cn.jpg" alt="">
+          <img src="people/vn.jpg" alt="">
+          <img src="people/ph.jpg" alt="">
+          <img src="people/in.jpg" alt="">
+        </div>
+        <span>Made for new Americans from everywhere</span>
+      </div>
     </div>
     <div class="phone">
       <img src="shots/study.png" alt="Civics Prep study home screen with progress ring and study modes">
@@ -421,12 +462,27 @@
       <h2>Made for the many, in many tongues.</h2>
       <p>Full translations of every official question and answer.</p>
     </div>
-    <div class="langs">
-      <div class="lang">Español <span>· Spanish</span></div>
-      <div class="lang">中文 <span>· Chinese</span></div>
-      <div class="lang">Tiếng Việt <span>· Vietnamese</span></div>
-      <div class="lang">Tagalog <span>· Filipino</span></div>
-      <div class="lang">हिन्दी <span>· Hindi</span></div>
+    <div class="faces">
+      <figure class="face">
+        <img src="people/mx.jpg" alt="A young Mexican woman holding a notebook, smiling on a sunny street">
+        <figcaption><b>Español<em>Spanish</em></b><span>Que apruebes tu examen.</span></figcaption>
+      </figure>
+      <figure class="face">
+        <img src="people/cn.jpg" alt="A Chinese grandmother smiling by a bright window with a book and tea">
+        <figcaption><b>中文<em>Chinese</em></b><span>祝你顺利通过考试，成功入籍。</span></figcaption>
+      </figure>
+      <figure class="face">
+        <img src="people/vn.jpg" alt="A Vietnamese man in an apron smiling in front of his family restaurant">
+        <figcaption><b>Tiếng Việt<em>Vietnamese</em></b><span>Chúc bạn thi đậu.</span></figcaption>
+      </figure>
+      <figure class="face">
+        <img src="people/ph.jpg" alt="A Filipina nurse in scrubs smiling outside a hospital">
+        <figcaption><b>Tagalog<em>Filipino</em></b><span>Nawa'y maipasa mo ang pagsusulit.</span></figcaption>
+      </figure>
+      <figure class="face">
+        <img src="people/in.jpg" alt="A young Indian man with a backpack smiling on a city sidewalk at sunset">
+        <figcaption><b>हिन्दी<em>Hindi</em></b><span>शुभकामनाएँ।</span></figcaption>
+      </figure>
     </div>
   </div>
 </section>
@@ -553,7 +609,7 @@
 
   // Tag reveal targets with staggered delays
   var groups = [
-    ".sec-head", ".feature", ".step", ".lang",
+    ".sec-head", ".feature", ".step", ".face",
     ".gallery > div", ".stats-inner", ".letter-card", ".faq details"
   ];
   groups.forEach(function (sel) {
