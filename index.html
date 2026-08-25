@@ -138,7 +138,7 @@
     box-shadow: 0 30px 70px rgba(23,32,58,.30), 0 4px 16px rgba(23,32,58,.18);
     transform: rotate(1.5deg);
   }
-  .phone img { width: 100%; display: block; border-radius: 34px; }
+  .phone img, .phone video { width: 100%; display: block; border-radius: 34px; }
 
   /* ---------- stat strip ---------- */
   .stats { margin: 0 auto; position: relative; z-index: 2; }
@@ -360,7 +360,8 @@
       </div>
     </div>
     <div class="phone">
-      <img src="shots/study.png" alt="Civics Prep study home screen with progress ring and study modes">
+      <video src="demo.mp4" autoplay muted loop playsinline preload="metadata" poster="shots/study.png"
+             aria-label="Civics Prep demo: flipping flashcards with memory tips, then passing a mock interview with the officer's scoreboard"></video>
     </div>
   </div>
 </header>
