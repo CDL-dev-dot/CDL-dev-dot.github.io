@@ -136,7 +136,6 @@
     width: 290px; margin: 0 auto; position: relative;
     border-radius: 44px; background: #0f1526; padding: 11px;
     box-shadow: 0 30px 70px rgba(23,32,58,.30), 0 4px 16px rgba(23,32,58,.18);
-    transform: rotate(1.5deg);
   }
   .phone img, .phone video { width: 100%; display: block; border-radius: 34px; }
 
@@ -290,7 +289,7 @@
 
   .hero-grid > div:first-child { animation: rise .8s cubic-bezier(.2,.7,.3,1) both; }
   .hero .phone { animation: rise .9s .15s cubic-bezier(.2,.7,.3,1) both, floaty 6s 1.2s ease-in-out infinite alternate; }
-  @keyframes rise { from { opacity: 0; transform: translateY(30px) rotate(1.5deg); } to { opacity: 1; } }
+  @keyframes rise { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; } }
   @keyframes floaty { from { translate: 0 0; } to { translate: 0 -10px; } }
 
   .hero::before { animation: drift 14s ease-in-out infinite alternate; }
@@ -600,7 +599,7 @@
         var x = (e.clientX - r.left) / r.width - 0.5;
         var y = (e.clientY - r.top) / r.height - 0.5;
         heroPhone.style.transform =
-          "perspective(900px) rotateY(" + (x * 9) + "deg) rotateX(" + (-y * 7) + "deg) rotate(1.5deg)";
+          "perspective(900px) rotateY(" + (x * 9) + "deg) rotateX(" + (-y * 7) + "deg)";
       });
       hero.addEventListener("mouseleave", function () {
         heroPhone.style.transform = "";
